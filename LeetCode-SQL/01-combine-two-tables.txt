@@ -1,7 +1,7 @@
 Combine Two Tables
 
 https://leetcode.com/problems/combine-two-tables/
-Q1 in https://leetcode.com/list/?selectedList=euurohgj
+Q1 in list
 
 Takeaways:
 	- when to use LEFT JOIN
