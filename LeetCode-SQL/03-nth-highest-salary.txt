@@ -1,0 +1,23 @@
+Nth Highest Salary
+
+https://leetcode.com/problems/nth-highest-salary/
+Q3 in https://leetcode.com/list/euurohgj
+
+Takeaways:
+	- the coorperation between LIMIT and OFFSET
+	- LIMIT only accepts INTEGER values
+	- DISTINCT considers NULL to be a unique value in SQL, so the query returns NULL if there is no nth highest salary
+	
+Solution:
+CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+DECLARE M INT;
+SET M = N-1;
+  RETURN (
+      SELECT DISTINCT(salary)
+      FROM Employee
+      ORDER BY salary DESC
+      LIMIT 1
+      OFFSET M
+  );
+END
