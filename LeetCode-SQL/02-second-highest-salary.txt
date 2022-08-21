@@ -1,0 +1,27 @@
+Second Highest Salary
+
+https://leetcode.com/problems/second-highest-salary/
+Q2 in list
+
+Takeaways:
+	- the inner query returns an empty result set, instead of NULL
+	- to get the NULL result, the empty result set needs to be mapped into a SELECT statement
+	- use DISTINCT to make sure that the correct second highest is picked up when there are repetations,
+		such as (200, 200, 100)
+
+Solution:
+# useful for finding nth highest for n > 1
+# just change the OFFSET statement
+SELECT 
+(
+    SELECT DISTINCT salary
+    FROM Employee
+    ORDER BY salary DESC
+    LIMIT 1 OFFSET 1
+) as SecondHighestSalary;
+
+Alternative solution:
+# only useful for finding 2nd highest
+SELECT MAX(salary) AS SecondHighestSalary
+FROM Employee
+WHERE salary < (SELECT MAX(salary) FROM Employee);
