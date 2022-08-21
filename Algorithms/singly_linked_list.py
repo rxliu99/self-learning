@@ -99,6 +99,9 @@ class SinglyLinkedList:
         Search for the Node at specified index.
         Takes O(n) time
         """
+        if index >= self.size():
+            raise IndexError('index out of range')
+        
         if index == 0:
             return self.head
         else:
@@ -116,6 +119,9 @@ class SinglyLinkedList:
         O(n) time.
         Takes overall O(n) time
         """
+        if index >= self.size():
+            raise IndexError('index out of range')
+        
         if index == 0:
             self.prepend(data)
         elif index > 0:
