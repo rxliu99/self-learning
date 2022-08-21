@@ -1,7 +1,7 @@
 Nth Highest Salary
 
 https://leetcode.com/problems/nth-highest-salary/
-Q3 in https://leetcode.com/list/euurohgj
+Q3 in list
 
 Takeaways:
 	- the coorperation between LIMIT and OFFSET
