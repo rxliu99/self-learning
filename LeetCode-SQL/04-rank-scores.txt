@@ -1,0 +1,26 @@
+Rank Scores
+
+https://leetcode.com/problems/rank-scores/
+Q4 in list
+
+Takeaways:
+	- the usage of DENSE_RANK()
+	- DENSE_RANK() uses the next chronological ranking value, but RANK() skips the next available ranking value(s)
+	- when the rows are ordered in a specific way for DENSE_RANK, no need for a ORDER BY unless wishing to change the ordering
+	- when the name of column is reserved for something else (e.g. a function), use quotation marks to avoid error
+	
+Solution:
+SELECT score,
+       DENSE_RANK() OVER (ORDER BY score DESC) "rank"
+FROM Scores;
+
+Alternative solution:
+# without using DENSE_RANK()
+# for each score in S, count how many scores in S2 is greater than or equal to that score; larger scores have lower counts
+SELECT S.Score, 
+       COUNT(S2.Score) AS "rank" 
+FROM Scores S
+JOIN (SELECT DISTINCT Score FROM Scores) S2
+ON S.Score <= S2.Score
+GROUP BY S.Id 
+ORDER BY S.Score DESC;
