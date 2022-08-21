@@ -1,0 +1,16 @@
+Combine Two Tables
+
+https://leetcode.com/problems/combine-two-tables/
+Q1 in https://leetcode.com/list/?selectedList=euurohgj
+
+Takeaways:
+	- when to use LEFT JOIN
+	
+Solution:
+SELECT p.firstName,
+       p.lastName,
+       a.city,
+       a.state
+FROM Person p
+LEFT JOIN Address a
+ON p.personId = a.personId;
