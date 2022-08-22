@@ -1,0 +1,18 @@
+Delete Duplicate Emails
+
+https://leetcode.com/problems/delete-duplicate-emails/
+Q11 in list
+
+Takeaways:
+	- the usage of DELETE JOIN; the rows that satisfy the ON clause are deleted from p1, which is Person
+	- how to locate duplicate rows with self join
+
+Solution:
+# algorithm: 1) self join to get p1.Id | p1.Email | p2.Id | p2.Email, 
+#            2) filter to narrow down to rows with p1.id > p2.id, 
+#            3) delete those rows
+DELETE p1.*
+FROM Person p1
+JOIN Person p2
+ON p1.email = p2.email AND 
+   p1.id > p2.id;
