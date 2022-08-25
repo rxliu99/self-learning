@@ -1,0 +1,22 @@
+Employees Earning More Than Their Managers
+
+https://leetcode.com/problems/employees-earning-more-than-their-managers/
+Q6 in list
+
+Takeaways:
+	- for INNER JOIN (or simply JOIN), there is no difference between having the conditions in ON clause verses having them in WHERE clause
+	- for LEFT JOIN and RIGHT JOIN, there might be a difference in result and/or run speed
+	
+Solution:
+SELECT t1.name AS "Employee"
+FROM Employee t1
+JOIN Employee t2
+ON t1.managerId = t2.id AND t1.salary > t2.salary;
+
+Alternative solution:
+# just having a WHERE clause instead of using two conditions for ON
+SELECT t1.name AS "Employee"
+FROM Employee t1
+JOIN Employee t2
+ON t1.managerId = t2.id
+WHERE t1.salary > t2.salary;
