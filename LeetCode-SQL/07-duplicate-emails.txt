@@ -1,0 +1,26 @@
+Duplicate Emails
+
+https://leetcode.com/problems/duplicate-emails/
+Q7 in list
+
+Takeaways:
+	- use HAVING instead of WHERE when the filtering condition involves an aggregation function
+	
+Solution:
+SELECT email AS Email
+FROM Person
+GROUP BY email
+HAVING COUNT(email) > 1;
+
+Alternative solution:
+# using subquery
+WITH cte AS
+(
+    SELECT email, COUNT(email) AS num
+    FROM Person
+    GROUP BY email
+)
+
+SELECT email
+FROM cte
+WHERE num > 1;
