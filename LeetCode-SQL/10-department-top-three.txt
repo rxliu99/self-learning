@@ -4,7 +4,8 @@ https://leetcode.com/problems/department-top-three-salaries/
 Q10 in list
 
 Takeaways:
-	- use DENSE_RANK to select top n
+	- use DENSE_RANK() to select top n
+	- use subquery to calculate a boundary, which can be used to filter rows; note how CTE cannot be used in this situation
 
 Solution:
 WITH cte AS
@@ -22,3 +23,17 @@ FROM cte
 JOIN Department d
 ON cte.departmentId = d.id
 WHERE salary_rank < 4;
+
+Alternative solution:
+# For the top earners, no more than 3 salary is bigger than each of their salary in the company 
+SELECT d.name AS 'Department', 
+       e.name AS 'Employee',
+       e.salary
+FROM Employee e
+JOIN Department d 
+ON e.departmentId = d.id
+WHERE 3 > 
+         (SELECT COUNT(DISTINCT e1.salary)
+          FROM Employee e1
+          WHERE e1.salary > e.salary AND 
+	        e1.departmentId = e.departmentId);
