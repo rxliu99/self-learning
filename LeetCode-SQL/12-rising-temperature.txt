@@ -1,0 +1,17 @@
+Rising Temperature
+
+https://leetcode.com/problems/rising-temperature/
+Q12 in list
+
+Takeaways:
+	- use DATEDIFF(date1, date2) to calculate the difference between dates; diff = date1 - date2; diff > 0 if date1 > date2
+	- DATEDIFF() will also work with datetime values, and only the dates will be compared
+	- alternative: TO_DAYS(date1)-TO_DAYS(date2); TO_DAYS(date) calculates the number of days between date and year 0; diff > 0 if date1 > date2
+	- alternative2: DATE_SUB(date1, INTERVAL n DAY) substracts n days from date1; the keyword for INTERVAL ranges from MICROSECOND to YEAR
+
+Solution:
+SELECT t1.id
+FROM Weather t1
+JOIN Weather t2
+ON DATEDIFF(t1.recordDate, t2.recordDate) = 1
+WHERE t1.temperature > t2.temperature;
