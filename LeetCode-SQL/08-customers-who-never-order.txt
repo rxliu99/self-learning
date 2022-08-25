@@ -1,0 +1,15 @@
+Customers Who Never Order
+
+https://leetcode.com/problems/customers-who-never-order/
+Q8 in list
+
+Takeaways:
+	- the difference between JOIN, LEFT JOIN, and RIGHT JOIN
+	- for LEFT JOIN and RIGHT JOIN, the rows don't have a match will be filled partially with NULL
+
+Solution:
+SELECT c.name Customers
+FROM Customers c
+LEFT JOIN Orders o
+ON c.id = o.customerId
+WHERE customerId IS NULL;
