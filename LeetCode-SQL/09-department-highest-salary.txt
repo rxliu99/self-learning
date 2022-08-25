@@ -1,0 +1,46 @@
+Department Highest Salary
+
+https://leetcode.com/problems/department-highest-salary/
+Q9 in list
+
+Takeaways:
+	- the usage of window functions, especially when it's in coorporation with PARTITION BY and ORDER BY
+	- remember the possibility of ties when finding max values
+	
+Solution:
+WITH cte AS
+(
+    SELECT d.name AS "Department",
+           e.name AS "Employee",
+           e.salary AS Salary,
+           DENSE_RANK() OVER (PARTITION BY e.departmentId 
+                              ORDER BY e.salary DESC) AS ranking
+    FROM Employee e
+    JOIN Department d
+    ON e.departmentId = d.id
+)
+
+SELECT Department,
+       Employee,
+       Salary
+FROM cte
+WHERE ranking = 1;
+
+Alternative solution:
+# a different window function
+WITH cte AS
+(
+    SELECT name,
+           salary,
+           departmentId,
+           MAX(salary) OVER (PARTITION BY departmentId) AS max_salary
+    FROM Employee e
+)
+
+SELECT d.name AS Department,
+       cte.name AS Employee,
+       cte.salary
+FROM cte
+JOIN Department d
+ON cte.departmentId = d.id
+WHERE cte.salary = cte.max_salary;
