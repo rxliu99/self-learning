@@ -1,0 +1,24 @@
+Department Top Three Salaries
+
+https://leetcode.com/problems/department-top-three-salaries/
+Q10 in list
+
+Takeaways:
+	- use DENSE_RANK to select top n
+
+Solution:
+WITH cte AS
+(
+    SELECT *,
+           DENSE_RANK() OVER (PARTITION BY departmentId
+                          ORDER BY salary DESC) AS salary_rank
+    FROM Employee
+)
+
+SELECT d.name AS Department,
+       cte.name AS Employee,
+       cte.salary
+FROM cte
+JOIN Department d
+ON cte.departmentId = d.id
+WHERE salary_rank < 4;
