@@ -1,0 +1,32 @@
+Trips and Users
+https://leetcode.com/problems/trips-and-users/
+Q13 in list
+
+Takeaways:
+	- the usage of ROUND(object, digit)
+	- the usage of IF(condition, true_result, false_result)
+	- creating a filtering list with subquery and associating that list with WHERE
+
+Solution:
+# using JOIN is still more intuitive for me
+SELECT t.request_at AS day,
+       ROUND(COUNT(CASE WHEN t.status LIKE "can%" THEN 1
+                        ELSE NULL END) / COUNT(t.id)
+             , 2) AS "Cancellation Rate"
+FROM Trips t
+JOIN Users u1
+ON t.client_id = u1.users_id AND u1.banned = "No"
+JOIN Users u2
+ON t.driver_id = u2.users_id AND u2.banned = "No"
+WHERE t.request_at BETWEEN "2013-10-01" AND "2013-10-03"
+GROUP BY t.request_at;
+
+Alternative solution:
+# faster than the previous solution
+SELECT request_at AS Day, 
+       ROUND(SUM(IF(status = 'completed', 0, 1))/COUNT(status), 2) as 'Cancellation Rate' 
+FROM Trips 
+WHERE client_id IN (SELECT users_id FROM Users WHERE banned = 'No') 
+      AND driver_id IN (SELECT users_Id FROM Users WHERE banned = 'No')
+      AND request_at BETWEEN '2013-10-01' AND '2013-10-03'
+GROUP BY request_at;
