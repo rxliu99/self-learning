@@ -1,0 +1,24 @@
+Classes More Than 5 Students
+
+https://leetcode.com/problems/classes-more-than-5-students/
+Q15 in list
+
+Takeaways:
+	- need to use HAVING, instead of WHERE, when the condition involves an aggregation function
+	- always alias sub tables
+
+Solution:
+SELECT class
+FROM
+    (SELECT class, 
+            COUNT(DISTINCT student) AS num
+    FROM courses
+    GROUP BY class) AS counter
+WHERE num >= 5;
+
+Alternative solution:
+# no subquery but significantly slower than the previous solution
+SELECT class
+FROM Courses
+GROUP BY class
+HAVING COUNT(DISTINCT student) >= 5;
