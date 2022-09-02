@@ -1,0 +1,40 @@
+Sales Person
+
+https://leetcode.com/problems/sales-person/
+Q16 in list
+
+Takeaways:
+	- use subquery to create a list for filtering
+	- joining more than two tables together
+
+Solution:
+SELECT name
+FROM SalesPerson
+WHERE sales_id NOT IN 
+(   
+    # the list of sales_id who had orders related to "RED"
+    SELECT sales_id
+    FROM Orders
+    WHERE com_id IN 
+    (   
+        # the com_id whose name is "RED"
+        SELECT com_id 
+        FROM Company 
+        WHERE name = "RED"
+    )
+);
+
+Alternative solution:
+# essentially the same logic, but looks cleaner since there's only one subquery
+# not any faster than the previous solution
+SELECT name
+FROM SalesPerson
+WHERE sales_id NOT IN
+    (SELECT s.sales_id sales_id
+     FROM SalesPerson s
+     LEFT JOIN Orders o
+     ON o.sales_id = s.sales_id
+     LEFT JOIN Company c
+     ON o.com_id = c.com_id
+     WHERE c.name = 'RED');
+  
