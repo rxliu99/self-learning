@@ -10,4 +10,6 @@ Table of Content
 
 05-JSON_API: Using the library *requests* in Python to extract information from JSON-formatted response data
 
-06-bookmark_server: Using the *http.server* module, as well as the libraries *urllib.parse* and *requests*, in Python to implement a server that behaves like a URI shortener
+06-bookmark_server: Using the *http.server* module, as well as the libraries *urllib.parse* and *requests*, in Python to implement a server that behaves like a URI shortener (maintaining a mapping between short names and long URIs)
+
+07-cookie_server: Using the *http.cookies* module, *http.server*, *urllib.parse*, and *requests* in Python to implement a HTTP server that remembers the name the user entered in a cookie
